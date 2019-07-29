@@ -1,21 +1,28 @@
 import React from 'react'
 
 class OrderCard extends React.Component {
+
+  checkDishCount = (dish) => {
+    const dishesArray = this.props.order.dishes
+    const dishNames = dishesArray.map(dish => dish.name)
+    const dishCount = dishNames.filter(d => d === dish)
+    const dishQuantity = dishCount.length
+    console.log(dishNames)
+    return dishQuantity
+  }
+  
   render() {
     const dishesArray = this.props.order.dishes
     const dishNames = dishesArray.map(dish => dish.name)
-    let dishNameAndCounts = {};
-    for (let i = 0; i < dishNames.length; i++) {
-        dishNameAndCounts[dishNames[i]] = 1 + (dishNameAndCounts[dishNames[i]] || 0);
-    }
-
-    // need to change object to array or find a new way to get name and count of name to render a short hand of the order form
-
+    const distinctDishNames = [...new Set(dishNames)]
+  
     const name = this.props.order.restaurant.name
+
+
     return (
-      <div>
+      <div className="order-card card" onClick={console.log}>
         <h3>{name}</h3>
-        {/* {dishNameAndCounts.map(dish => <p>{dish}</p>)} */}
+        {distinctDishNames.map(dish => <p>{dish} x {this.checkDishCount(dish)}</p>)}
       </div>
     )
   }

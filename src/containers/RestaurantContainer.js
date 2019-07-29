@@ -5,7 +5,7 @@ const RestaurantContainer = ({restaurants, setSelected}) => {
   console.log(restaurants)
   return (
     // for each restaurant in all, render a card
-    <div>
+    <div className="restaurant-container">
       {restaurants.map(restaurant => <RestaurantCard restaurant={restaurant} key={restaurant.id} setSelected={setSelected}/>)}
 
     </div>

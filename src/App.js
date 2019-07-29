@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import './App.css';
 import RestaurantContainer from './containers/RestaurantContainer';
 import OrderContainer from './containers/OrderContainer'
-import OrderForm from './components/OrderForm'
+import RestaurantDetails from './containers/RestaurantDetails'
 
 import API from './adapters/API';
 
@@ -40,11 +40,6 @@ class App extends React.Component {
     })
   }
 
-  getOrderDishes = () => {
-    const dishes = this.state.orders.map(order => order.dishes)
-    console.log(dishes)
-  }
-
   // signUp = user => {
   //   API.signUp(user)
   //     .then(user => this.setState({ user }))
@@ -60,15 +55,21 @@ class App extends React.Component {
   //   this.setState({ user: undefined })
   // }
 
+  newOrder = (event) => {
+    event.preventDefault();
+    console.log(event)
+  }
+
   render() {
-    
+    const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
     return (
       <div className="App">
         {/* <Navbar user={this.state.user} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} /> */}
         <RestaurantContainer restaurants={this.state.restaurants} setSelected={this.setSelected} />
         {/* now we need to have a routes path to open the selected restaurant in a new component */}
+        { this.state.selectedRestaurant !== "" ? 
+        <RestaurantDetails restaurant={selectedRestaurant} newOrder={this.newOrder}/> : <div/>}
         <OrderContainer orders={this.state.orders}/>
-        <OrderForm />
       </div>
     );
   }
