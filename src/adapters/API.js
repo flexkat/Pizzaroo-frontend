@@ -1,7 +1,7 @@
 const endpoint = 'http://localhost:3000/api/v1'
 const signupUrl = `${endpoint}/users`
 const loginUrl = `${endpoint}/login`
-// const postsUrl = `${endpoint}/posts`
+const ordersUrl = `${endpoint}/orders`
 const validateUrl = `${endpoint}/validate`
 
 const jsonify = res => {
@@ -56,9 +56,15 @@ const validateUser = () => {
 
 const clearToken = () => localStorage.removeItem('token')
 
+const getData = (value) => {
+  return fetch(`${endpoint}/${value}`)
+    .then(res=> res.json())
+}
+
 export default {
     signUp,
     logIn,
     validateUser,
-    clearToken
+    clearToken,
+    getData
 }
