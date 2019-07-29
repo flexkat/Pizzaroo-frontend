@@ -1,33 +1,34 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.login {
+  background-image: url('./media/login_background.jpg');
+  height: 100vh;
+  font-family: 'Special Elite', cursive;
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: white; */
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+  text-align: center;
+  padding-top: 40vh;
+  font-size: 8rem;
+  color: red;
+  text-shadow: 5px 5px black;
+  letter-spacing: 1.5rem;
+  font-weight: 300;
+}
+
+.form {
+  justify-content: center;
 }

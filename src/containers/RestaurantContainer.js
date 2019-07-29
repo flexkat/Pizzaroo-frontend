@@ -2,7 +2,6 @@ import React from 'react'
 import RestaurantCard from '../components/RestaurantCard'
 
 const RestaurantContainer = ({restaurants, setSelected}) => {
-  console.log(restaurants)
   return (
     // for each restaurant in all, render a card
     <div>
@@ -10,6 +9,7 @@ const RestaurantContainer = ({restaurants, setSelected}) => {
 
     </div>
   )
+
 }
 
 export default RestaurantContainer
