@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import './App.css';
 import RestaurantContainer from './containers/RestaurantContainer';
 import OrderContainer from './containers/OrderContainer'
-import OrderForm from './components/OrderForm'
+import RestaurantDetails from './containers/RestaurantDetails'
 import {Route} from 'react-router-dom';
 import API from './adapters/API';
 import RestaurantDetails from './components/RestaurantDetails'
@@ -60,8 +60,7 @@ class App extends React.Component {
   logIn = user => {
     API.logIn(user)
       .then(user => this.setState({ user }))
-    if (user !== undefined){this.redirectToHome()}
-    
+    if (user !== undefined){this.redirectToHome()} 
   }
 
   logOut = () => {
@@ -70,7 +69,15 @@ class App extends React.Component {
   }
   findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
+  newOrder = (event) => {
+    event.preventDefault();
+    console.log(event)
+  }
+
   render() {
+
+//     const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
+    
     return (
         <div>
 
@@ -83,10 +90,11 @@ class App extends React.Component {
           
           <Route exact path='/home' render={(props)=>
             <RestaurantContainer {...props} restaurants={this.state.restaurants} setSelected={this.setSelected} />
+            <OrderContainer orders={this.state.orders}/>
           } />
 
           <Route path={"/restaurants/:id"} component={(props) =>
-            <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} 
+            <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} newOrder={this.newOrder}
             loading={!this.findRestaurant(props.match.params.id)}
             />
         } />
