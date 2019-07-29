@@ -27,9 +27,11 @@ class App extends React.Component {
           restaurants
         })
     })
+  }
 
+  loadOrders = () => {
     API.getData('orders').then(orders => {
-      const usersOrders = orders.filter(order => order.user.id === 1)
+      const usersOrders = orders.filter(order => order.user.id === this.state.user.user.id)
       this.setState({
         orders: usersOrders
       })
@@ -64,6 +66,7 @@ class App extends React.Component {
   logIn = (user) => {
     API.logIn(user)
       .then(user => this.setState({ user }))
+    this.loadOrders()
     if (user !== undefined){this.redirectToHome()} 
   }
 
@@ -91,17 +94,18 @@ class App extends React.Component {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         restaurant_id: id,
-        user_id: 1,
-        // this.state.user.user.id,
+        user_id: this.state.user.user.id,
       })
     })
     .then(res => res.json())
     .then( order => this.postRequest(order, orderDishes))
+    .then(() => this.redirectToHome())
+    .then(() => this.loadOrders())
   }
 
   postRequest = (order, orderDishes) => {
    return orderDishes.forEach(el => {
-      console.log(order.order.id)
+      // console.log(order.order.id)
       const data = {
         order_id: parseInt(order.order.id),
         dish_id: parseInt(el.dish_id),
@@ -113,7 +117,7 @@ class App extends React.Component {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)})
       .then(res => res.json())
-      .then(console.log)
+      // .then(console.log)
       }
    )}; 
   
