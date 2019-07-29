@@ -3,8 +3,7 @@ import RestaurantCard from '../components/RestaurantCard'
 
 const RestaurantContainer = ({restaurants, setSelected}) => {
   return (
-    // for each restaurant in all, render a card
-    <div className="restaurant-container">
+    <div className="restaurant-container container">
       {restaurants.map(restaurant => <RestaurantCard restaurant={restaurant} key={restaurant.id} setSelected={setSelected}/>)}
 
     </div>

@@ -4,10 +4,9 @@ import Navbar from './components/Navbar';
 import './App.css';
 import RestaurantContainer from './containers/RestaurantContainer';
 import OrderContainer from './containers/OrderContainer'
-import RestaurantDetails from './containers/RestaurantDetails'
+import RestaurantDetails from './components/RestaurantDetails'
 import {Route} from 'react-router-dom';
 import API from './adapters/API';
-import RestaurantDetails from './components/RestaurantDetails'
 import {withRouter} from 'react-router-dom'
 
 
@@ -71,7 +70,7 @@ class App extends React.Component {
 
   newOrder = (event) => {
     event.preventDefault();
-    console.log(event)
+    // console.log(event)
   }
 
   render() {
@@ -89,8 +88,10 @@ class App extends React.Component {
           } />
           
           <Route exact path='/home' render={(props)=>
-            <RestaurantContainer {...props} restaurants={this.state.restaurants} setSelected={this.setSelected} />
-            <OrderContainer orders={this.state.orders}/>
+            <div>
+              <RestaurantContainer {...props} restaurants={this.state.restaurants} setSelected={this.setSelected} />
+              <OrderContainer orders={this.state.orders}/>
+            </div>
           } />
 
           <Route path={"/restaurants/:id"} component={(props) =>

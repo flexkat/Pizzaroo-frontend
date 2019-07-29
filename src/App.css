@@ -8,6 +8,7 @@
   border: black 1px solid;
   padding: 5px;
   margin: 20px;
+}
 
 .login {
   background-image: url('./media/login_background.jpg');
@@ -27,6 +28,7 @@
 
 .container {
   padding: 2px 16px;
+}
 
 .logo {
   text-align: center;
