@@ -7,8 +7,6 @@ const validateUrl = `${endpoint}/validate`
 const jsonify = res => {
     if (res.ok)
         return res.json()
-    else
-        throw new Error(res.json())
 }
 const handleServerError = response => console.error(response)
 

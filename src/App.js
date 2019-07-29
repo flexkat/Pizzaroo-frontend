@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import Navbar from './components/Navbar';
 import './App.css';
 import RestaurantContainer from './containers/RestaurantContainer';
 import OrderContainer from './containers/OrderContainer'
 import RestaurantDetails from './containers/RestaurantDetails'
-
+import {Route} from 'react-router-dom';
 import API from './adapters/API';
+import RestaurantDetails from './components/RestaurantDetails'
+import {withRouter} from 'react-router-dom'
+
 
 class App extends React.Component {
 
@@ -18,7 +21,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // API.validateUser()
+    API.validateUser()
     
     API.getData('restaurants').then(restaurants => {
         this.setState({
@@ -40,20 +43,31 @@ class App extends React.Component {
     })
   }
 
-  // signUp = user => {
-  //   API.signUp(user)
-  //     .then(user => this.setState({ user }))
-  // }
+  getOrderDishes = () => {
+    const dishes = this.state.orders.map(order => order.dishes)
+    // console.log(dishes)
+  }
 
-  // logIn = user => {
-  //   API.logIn(user)
-  //     .then(user => this.setState({ user }))
-  // }
+  signUp = user => {
+    API.signUp(user)
+      .then(user => this.setState({ user }))
+  }
 
-  // logOut = () => {
-  //   API.clearToken()
-  //   this.setState({ user: undefined })
-  // }
+  redirectToHome = () => {
+    this.props.history.push(`/home`)
+  }
+
+  logIn = user => {
+    API.logIn(user)
+      .then(user => this.setState({ user }))
+    if (user !== undefined){this.redirectToHome()} 
+  }
+
+  logOut = () => {
+    API.clearToken()
+    this.setState({ user: undefined })
+  }
+  findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
   newOrder = (event) => {
     event.preventDefault();
@@ -61,19 +75,34 @@ class App extends React.Component {
   }
 
   render() {
-    const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
+
+//     const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
+    
     return (
-      <div className="App">
-        {/* <Navbar user={this.state.user} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} /> */}
-        <RestaurantContainer restaurants={this.state.restaurants} setSelected={this.setSelected} />
-        {/* now we need to have a routes path to open the selected restaurant in a new component */}
-        { this.state.selectedRestaurant !== "" ? 
-        <RestaurantDetails restaurant={selectedRestaurant} newOrder={this.newOrder}/> : <div/>}
-        <OrderContainer orders={this.state.orders}/>
-      </div>
+        <div>
+
+          <Route exact path="/" component={() => 
+            <div className="login">
+            <h1 className="logo">Pizzaroo!</h1>
+            <Navbar className="App" user={this.state.user} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} />
+            </div>
+          } />
+          
+          <Route exact path='/home' render={(props)=>
+            <RestaurantContainer {...props} restaurants={this.state.restaurants} setSelected={this.setSelected} />
+            <OrderContainer orders={this.state.orders}/>
+          } />
+
+          <Route path={"/restaurants/:id"} component={(props) =>
+            <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} newOrder={this.newOrder}
+            loading={!this.findRestaurant(props.match.params.id)}
+            />
+        } />
+
+        </div>
     );
   }
 }
 
 
-export default App;
+export default withRouter(App);

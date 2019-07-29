@@ -8,18 +8,20 @@ const SignupForm = ({ submit, header }) => {
 
 
     return (
-        <form onSubmit={e => {
+        <form className="form" onSubmit={e => {
             e.preventDefault();
             submit({ username, password, name })
             setUsername('')
             setPassword('')
             setName('')
         }}>
-            <span>{header}</span>
-            <input placeholder="name" type="name" name="name" value={name} onChange={e => setName(e.target.value)} />
-            <input placeholder="username" type="username" name="username" value={username} onChange={e => setUsername(e.target.value)} />
-            <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
-            <input type="submit" />
+            <span style={{display: 'flex', justifyContent: 'center'}}>{header}</span>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <input placeholder="name" type="name" name="name" value={name} onChange={e => setName(e.target.value)} />
+                <input placeholder="username" type="username" name="username" value={username} onChange={e => setUsername(e.target.value)} />
+                <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <input type="submit" />
+            </div>
         </form>
     )
 }
