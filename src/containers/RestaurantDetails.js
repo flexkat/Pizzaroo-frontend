@@ -4,7 +4,7 @@ import OrderForm from '../components/OrderForm'
 class RestaurantDetails extends React.Component {
 
   render() {
-    console.log(this.props.restaurant)
+    // console.log(this.props.restaurant)
 
     const {name, address, dishes} = this.props.restaurant
     return (

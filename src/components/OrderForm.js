@@ -7,18 +7,19 @@ class OrderForm extends React.Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.id]: e.target.value
     })
-    // console.log(e.target.value)
+    console.log(e.target.id)
+    console.log(e.target.value)
   } 
   
   render() {
     const { restaurant, handleSubmit } = this.props
     return (
       <div>
-        <h2>New Order</h2>
-        <form onSubmit={(e) => handleSubmit(e.target.name, e.target.value)}>
-          {restaurant.dishes.map(dish => <p><label>{dish.name}</label><input type="number" name={dish.name} onChange={this.handleChange}/></p>)}
+        <h2>Place an order</h2>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          {restaurant.dishes.map(dish => <p><label>{dish.name}</label><input type="number" id={dish.id} onChange={this.handleChange}/></p>)}
           <input type="submit" value="submit"/>
         </form>
       </div>

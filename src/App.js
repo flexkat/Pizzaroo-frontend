@@ -16,7 +16,7 @@ class App extends React.Component {
     user: undefined,
     restaurants: [],
     orders: [],
-    selectedRestaurant: ""
+    // selectedRestaurant: ""
   }
 
   componentDidMount() {
@@ -98,7 +98,14 @@ class App extends React.Component {
             <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} newOrder={this.newOrder}
             loading={!this.findRestaurant(props.match.params.id)}
             />
-        } />
+          } />
+
+          {/* <Route path={"/orders/:id"} component={(props) =>
+            <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} newOrder={this.newOrder}
+            loading={!this.findRestaurant(props.match.params.id)}
+            />
+          } /> */}
+
 
         </div>
     );

@@ -7,7 +7,7 @@ class OrderCard extends React.Component {
     const dishNames = dishesArray.map(dish => dish.name)
     const dishCount = dishNames.filter(d => d === dish)
     const dishQuantity = dishCount.length
-    console.log(dishNames)
+    // console.log(dishNames)
     return dishQuantity
   }
   
@@ -23,6 +23,7 @@ class OrderCard extends React.Component {
       <div className="order-card card" onClick={console.log}>
         <h3>{name}</h3>
         {distinctDishNames.map(dish => <p>{dish} x {this.checkDishCount(dish)}</p>)}
+        <button>Edit</button>
       </div>
     )
   }
