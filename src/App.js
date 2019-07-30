@@ -44,10 +44,10 @@ class App extends React.Component {
     })
   }
 
-  getOrderDishes = () => {
-    const dishes = this.state.orders.map(order => order.dishes)
-    // console.log(dishes)
-  }
+  // getOrderDishes = () => {
+  //   const dishes = this.state.orders.map(order => order.dishes)
+  //   // console.log(dishes)
+  // }
 
   signUp = (user) => {
     API.signUp(user)
@@ -78,18 +78,33 @@ class App extends React.Component {
 
   findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
-  
+  // editOrder = (e, editedOrder, orderId) => {
+  //  const orderDishes = this.orderDishes(editedOrder)
+  //   API.patchData(orderDishes, orderId)
+  //   .then(console.log)
+  //   // setselectedorder,
+  //   // edit pre-populated order form
+  //   // submit -> editorder (e, editedOrder, order.id)
+  //   // get new orderDishes
+  //   // patch request to that order id
+  //   // fetch()
 
-  newOrder = (e, newOrder, id) => {
-    e.preventDefault();
+  // } 
+
+  orderDishes = (order) => {
     const orderDishes = []
-    console.log(newOrder)
-    for (const key in newOrder) {
-      const quant = parseInt(newOrder[key])
+    console.log(order)
+    for (const key in order) {
+      const quant = parseInt(order[key])
       for (let i = 0; i < quant; i++) {
         orderDishes.push(key)
       }
     }
+    return orderDishes;
+  }
+  newOrder = (e, newOrder, id) => {
+    e.preventDefault();
+    const orderDishes = this.orderDishes(newOrder)
     
     return fetch(API.ordersUrl, {
       method: 'POST',
@@ -121,6 +136,8 @@ class App extends React.Component {
       // .then(console.log)
       }
    )}; 
+
+
   
 
   render() {
