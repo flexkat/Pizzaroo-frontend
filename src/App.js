@@ -10,6 +10,7 @@ import {withRouter} from 'react-router-dom'
 import OrderDetails from './components/OrderDetails';
 
 
+
 class App extends React.Component {
 
   state = {
@@ -123,7 +124,6 @@ class App extends React.Component {
   redirectToOrderEdit = (id) => {
     this.props.history.push(`/orders/${id}`)
   }
-  
 
   render() {
       // let userId = this.state.user.user.id
@@ -159,7 +159,7 @@ class App extends React.Component {
 
           <Route path={"/orders/:id"} component={(props) =>
             <OrderDetails {...props} order={this.findOrder(props.match.params.id)}
-            loading={!this.findOrder(props.match.params.id)}
+            loading={!this.findOrder(props.match.params.id)} redirectToHome={this.redirectToHome}
             />
           } />
 
