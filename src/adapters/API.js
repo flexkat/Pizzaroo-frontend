@@ -3,6 +3,7 @@ const signupUrl = `${endpoint}/users`
 const loginUrl = `${endpoint}/login`
 const ordersUrl = `${endpoint}/orders`
 const validateUrl = `${endpoint}/validate`
+const orderDishUrl = `${endpoint}/order_dishes`
 
 const jsonify = res => {
     if (res.ok)
@@ -64,5 +65,7 @@ export default {
     logIn,
     validateUser,
     clearToken,
-    getData
+    getData,
+    ordersUrl,
+    orderDishUrl
 }

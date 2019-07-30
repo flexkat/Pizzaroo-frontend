@@ -9,16 +9,16 @@ class OrderForm extends React.Component {
     this.setState({
       [e.target.id]: e.target.value
     })
-    console.log(e.target.id)
-    console.log(e.target.value)
-  } 
+  }
+
+  
   
   render() {
     const { restaurant, handleSubmit } = this.props
     return (
       <div>
         <h2>Place an order</h2>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e, this.state, restaurant.id)}>
           {restaurant.dishes.map(dish => <p><label>{dish.name}</label><input type="number" id={dish.id} onChange={this.handleChange}/></p>)}
           <input type="submit" value="submit"/>
         </form>

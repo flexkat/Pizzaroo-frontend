@@ -27,9 +27,11 @@ class App extends React.Component {
           restaurants
         })
     })
+  }
 
+  loadOrders = () => {
     API.getData('orders').then(orders => {
-      const usersOrders = orders.filter(order => order.user.id === 1)
+      const usersOrders = orders.filter(order => order.user.id === this.state.user.user.id)
       this.setState({
         orders: usersOrders
       })
@@ -47,34 +49,82 @@ class App extends React.Component {
     // console.log(dishes)
   }
 
-  signUp = user => {
+  signUp = (user) => {
     API.signUp(user)
       .then(user => this.setState({ user }))
+    if (user !== undefined){this.redirectToHome()}
   }
 
   redirectToHome = () => {
     this.props.history.push(`/home`)
   }
 
-  logIn = user => {
+  redirectToLogin = () => {
+    this.props.history.push(`/`)
+  }
+
+  logIn = (user) => {
     API.logIn(user)
       .then(user => this.setState({ user }))
+    this.loadOrders()
     if (user !== undefined){this.redirectToHome()} 
   }
 
-  logOut = () => {
+  logOut = (user) => {
     API.clearToken()
     this.setState({ user: undefined })
+    if (user === undefined){this.redirectToLogin()} 
   }
+
   findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
-  newOrder = (event) => {
-    event.preventDefault();
-    // console.log(event)
+  
+
+  newOrder = (e, newOrder, id) => {
+    e.preventDefault();
+    const orderDishes = []
+    for (const key in newOrder) {
+      const newDish = {dish_id: key,
+      quantity: newOrder[key]}
+      
+      orderDishes.push(newDish)
+    }
+    return fetch(API.ordersUrl, {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        restaurant_id: id,
+        user_id: this.state.user.user.id,
+      })
+    })
+    .then(res => res.json())
+    .then( order => this.postRequest(order, orderDishes))
+    .then(() => this.redirectToHome())
+    .then(() => this.loadOrders())
   }
 
-  render() {
+  postRequest = (order, orderDishes) => {
+   return orderDishes.forEach(el => {
+      // console.log(order.order.id)
+      const data = {
+        order_id: parseInt(order.order.id),
+        dish_id: parseInt(el.dish_id),
+        quantity: parseInt(el.quantity)
+      }
 
+      fetch(API.orderDishUrl, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)})
+      .then(res => res.json())
+      // .then(console.log)
+      }
+   )}; 
+  
+
+  render() {
+      // let userId = this.state.user.user.id
+      // console.log(this.state.user.id)
 //     const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
     
     return (
