@@ -1,5 +1,5 @@
 import React from 'react'
-import PopUp from '../components/PopUp'
+// import PopUp from '../components/PopUp'
 
 class OrderCard extends React.Component {
 

@@ -46,10 +46,10 @@ class App extends React.Component {
   //   })
   // }
 
-  getOrderDishes = () => {
-    const dishes = this.state.orders.map(order => order.dishes)
-    // console.log(dishes)
-  }
+  // getOrderDishes = () => {
+  //   const dishes = this.state.orders.map(order => order.dishes)
+  //   // console.log(dishes)
+  // }
 
   signUp = (user) => {
     API.signUp(user)
@@ -58,6 +58,7 @@ class App extends React.Component {
   }
 
   redirectToHome = () => {
+    this.loadOrders()
     this.props.history.push(`/home`)
   }
 
@@ -86,8 +87,9 @@ class App extends React.Component {
     e.preventDefault();
     const orderDishes = []
     for (const key in newOrder) {
-      const newDish = {dish_id: key,
-      quantity: newOrder[key]}
+      const newDish = {
+        dish_id: key,
+        quantity: newOrder[key]}
       
       orderDishes.push(newDish)
     }

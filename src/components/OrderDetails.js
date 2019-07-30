@@ -17,14 +17,24 @@ class RestaurantDetails extends React.Component {
     });
   }
 
-    deleteOrder= () => {
-        fetch(API.ordersUrl + '/' + this.props.order.id, {
-          method: 'delete'
-        }).then(res => res.json()
-          .then(json => this.togglePopup())
-          .then(setTimeout(() => this.props.redirectToHome(), 3000))
-        );
-      }
+  deleteOrderDish= () => {
+
+    fetch(API.orderDishUrl + '/' + this.props.order.id, {
+      method: 'delete'
+    }).then(res => res.json()
+      .then(json => this.togglePopup())
+      .then(setTimeout(() => this.props.redirectToHome(), 2000))
+    );
+  }
+
+  deleteOrder= () => {
+      fetch(API.ordersUrl + '/' + this.props.order.id, {
+        method: 'delete'
+      }).then(res => res.json()
+        .then(json => this.togglePopup())
+        .then(setTimeout(() => this.props.redirectToHome(), 2000))
+      );
+    }
 
   render() {
 
@@ -40,7 +50,7 @@ class RestaurantDetails extends React.Component {
     const address = this.props.order.restaurant.address
     const time = this.props.order.restaurant.created_at
     const dishes = this.props.order.dishes
-
+console.log(this.props.order)
     return (
       <div>
         {this.state.showPopup ? <PopUp/> : null}
@@ -55,7 +65,7 @@ class RestaurantDetails extends React.Component {
         {/* <OrderForm restaurant={this.props.order.restaurant} 
         handleSubmit={this.props.newOrder}
         /> */}
-        <button onClick={this.deleteOrder} >Delete order</button>
+        <button onClick={this.deleteOrderDish} >Delete order</button>
       </div>
     )
   }
