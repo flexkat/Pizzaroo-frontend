@@ -16,7 +16,7 @@ class App extends React.Component {
   state = {
     user: undefined,
     restaurants: [],
-    orders: [],
+    orders: []
     // selectedRestaurant: "",
     // selectedOrder: ""
   }

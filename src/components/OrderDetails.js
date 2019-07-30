@@ -6,10 +6,19 @@ import PopUp from '../components/PopUp'
 
 class RestaurantDetails extends React.Component {
 
-    state = {
-        showPopup: false 
-    }
-
+  state = {
+      showPopup: false,
+      orderDishes: []
+  }
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/order_dishes/')
+    .then(res => res.json())
+    .then(order_dishes => {
+      this.setState({
+        orderDishes: order_dishes
+      })
+    })
+  }
 
   togglePopup() {
     this.setState({
@@ -17,23 +26,12 @@ class RestaurantDetails extends React.Component {
     });
   }
 
-  deleteOrderDish= () => {
-
-    fetch(API.orderDishUrl + '/' + this.props.order.id, {
-      method: 'delete'
-    }).then(res => res.json()
-      .then(json => this.togglePopup())
-      .then(setTimeout(() => this.props.redirectToHome(), 2000))
-    );
-  }
-
   deleteOrder= () => {
-      fetch(API.ordersUrl + '/' + this.props.order.id, {
+      fetch('http://localhost:3000/api/v1/orders/' + this.props.order.id, {
         method: 'delete'
-      }).then(res => res.json()
+      }).then(res => res.json())
         .then(json => this.togglePopup())
         .then(setTimeout(() => this.props.redirectToHome(), 2000))
-      );
     }
 
   render() {
@@ -50,7 +48,7 @@ class RestaurantDetails extends React.Component {
     const address = this.props.order.restaurant.address
     const time = this.props.order.restaurant.created_at
     const dishes = this.props.order.dishes
-console.log(this.props.order)
+
     return (
       <div>
         {this.state.showPopup ? <PopUp/> : null}
@@ -65,7 +63,7 @@ console.log(this.props.order)
         {/* <OrderForm restaurant={this.props.order.restaurant} 
         handleSubmit={this.props.newOrder}
         /> */}
-        <button onClick={this.deleteOrderDish} >Delete order</button>
+        <button onClick={this.deleteOrder} >Delete order</button>
       </div>
     )
   }
