@@ -165,7 +165,6 @@ class App extends React.Component {
     this.setState({
       editingOrder,
       dishQuantities,
-      originalDishQuantities: dishQuantities
     })
     this.props.history.push(`/orders/${id}`) 
   }
@@ -184,13 +183,43 @@ class App extends React.Component {
     
  
   updateEditingOrder = (e) => {
-    console.log(e.target)
+    e.preventDefault();
+
+    return API.getData("order_dishes")
+    .then(orderDishes => {
+      const dishes = orderDishes.filter(oD => oD.order.id === this.state.editingOrder.id)
+      const deleteDishesPromise = dishes.map(dish => fetch(`${API.orderDishUrl}/${dish.id}`, {
+        method: "DELETE"
+      }))
+      Promise.all(deleteDishesPromise)
+        .then(() => {
+          const orderDishes = Object.keys(this.state.dishQuantities)
+
+          for (const key of orderDishes) {
+            const dish = this.state.dishQuantities[key];
+            const frequency = parseInt(dish.quantity)
+            const data = {
+              order_id: parseInt(this.state.editingOrder.id),
+              dish_id: parseInt(key),
+              quantity: 1
+            }
+            for (let i=0; i < frequency; i ++) {
+              fetch(API.orderDishUrl, {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data)})
+                .then(res => res.json())
+                .then(this.loadOrders())
+              }
+            }
+          }
+        )
+      }
+    )
   }
 
   render() {
-      // let userId = this.state.user.user.id
-      // console.log(this.state.user.id)
-//     const selectedRestaurant = this.state.restaurants.find(restaurant => restaurant.id === this.state.selectedRestaurant)
+     
     return (
         <div>
 
@@ -223,7 +252,7 @@ class App extends React.Component {
               {...props} 
               order={this.state.editingOrder} 
               dishQuantities={this.state.dishQuantities} 
-              updateEditingOrder={this.updateEditingOrder}
+              handleSubmit={this.updateEditingOrder}
               onDishQuantityChangeHandler={this.onDishQuantityChangeHandler}
               loading={!this.findOrder(props.match.params.id)} 
               redirectToHome={this.redirectToHome}

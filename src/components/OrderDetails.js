@@ -45,10 +45,6 @@ class OrderDetails extends React.Component {
     return dishQuantity
   }
 
-  handleChange = (e) => {
-    console.log(e.target)
-  }
-
   render() {
 
     if (this.props.loading) {
@@ -76,7 +72,7 @@ class OrderDetails extends React.Component {
         <h3>To: {restaurant}</h3>
         <p>Address: {address}</p>
         <p>Ordered on: {time}</p>
-        <form onSubmit={null}>
+        <form onSubmit={this.props.handleSubmit}>
           {
             Object.keys(this.props.dishQuantities).map(function(key) {
               const dish = props.dishQuantities[key];
