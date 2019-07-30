@@ -83,12 +83,14 @@ class App extends React.Component {
   newOrder = (e, newOrder, id) => {
     e.preventDefault();
     const orderDishes = []
+    console.log(newOrder)
     for (const key in newOrder) {
-      const newDish = {dish_id: key,
-      quantity: newOrder[key]}
-      
-      orderDishes.push(newDish)
+      const quant = parseInt(newOrder[key])
+      for (let i = 0; i < quant; i++) {
+        orderDishes.push(key)
+      }
     }
+    
     return fetch(API.ordersUrl, {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
@@ -105,11 +107,10 @@ class App extends React.Component {
 
   postRequest = (order, orderDishes) => {
    return orderDishes.forEach(el => {
-      // console.log(order.order.id)
       const data = {
         order_id: parseInt(order.order.id),
-        dish_id: parseInt(el.dish_id),
-        quantity: parseInt(el.quantity)
+        dish_id: parseInt(el),
+        quantity: 1
       }
 
       fetch(API.orderDishUrl, {
