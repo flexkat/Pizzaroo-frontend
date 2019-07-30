@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
 import Navbar from './components/Navbar';
 import './App.css';
 import RestaurantContainer from './containers/RestaurantContainer';
@@ -8,6 +7,7 @@ import RestaurantDetails from './components/RestaurantDetails'
 import {Route} from 'react-router-dom';
 import API from './adapters/API';
 import {withRouter} from 'react-router-dom'
+import OrderDetails from './components/OrderDetails';
 
 
 class App extends React.Component {
@@ -16,7 +16,8 @@ class App extends React.Component {
     user: undefined,
     restaurants: [],
     orders: [],
-    // selectedRestaurant: ""
+    // selectedRestaurant: "",
+    // selectedOrder: ""
   }
 
   componentDidMount() {
@@ -38,11 +39,11 @@ class App extends React.Component {
     })
   }
 
-  setSelected = (key, item) => {
-    this.setState({
-      [key]: item
-    })
-  }
+  // setSelected = (key, item) => {
+  //   this.setState({
+  //     [key]: item
+  //   })
+  // }
 
   getOrderDishes = () => {
     const dishes = this.state.orders.map(order => order.dishes)
@@ -78,7 +79,7 @@ class App extends React.Component {
 
   findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
-  
+  findOrder = id => this.state.orders.find(res => res.id === parseInt(id))
 
   newOrder = (e, newOrder, id) => {
     e.preventDefault();
@@ -105,7 +106,6 @@ class App extends React.Component {
 
   postRequest = (order, orderDishes) => {
    return orderDishes.forEach(el => {
-      // console.log(order.order.id)
       const data = {
         order_id: parseInt(order.order.id),
         dish_id: parseInt(el.dish_id),
@@ -117,9 +117,12 @@ class App extends React.Component {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)})
       .then(res => res.json())
-      // .then(console.log)
       }
    )}; 
+
+  redirectToOrderEdit = (id) => {
+    this.props.history.push(`/orders/${id}`)
+  }
   
 
   render() {
@@ -139,8 +142,12 @@ class App extends React.Component {
           
           <Route exact path='/home' render={(props)=>
             <div>
-              <RestaurantContainer {...props} restaurants={this.state.restaurants} setSelected={this.setSelected} />
-              <OrderContainer orders={this.state.orders}/>
+              <RestaurantContainer {...props} restaurants={this.state.restaurants} 
+              // setSelected={this.setSelected} 
+              />
+              <OrderContainer orders={this.state.orders} redirectToOrderEdit={this.redirectToOrderEdit}
+              // setSelected={this.setSelected}
+              />
             </div>
           } />
 
@@ -150,11 +157,11 @@ class App extends React.Component {
             />
           } />
 
-          {/* <Route path={"/orders/:id"} component={(props) =>
-            <RestaurantDetails {...props} restaurant={this.findRestaurant(props.match.params.id)} newOrder={this.newOrder}
-            loading={!this.findRestaurant(props.match.params.id)}
+          <Route path={"/orders/:id"} component={(props) =>
+            <OrderDetails {...props} order={this.findOrder(props.match.params.id)}
+            loading={!this.findOrder(props.match.params.id)}
             />
-          } /> */}
+          } />
 
 
         </div>
