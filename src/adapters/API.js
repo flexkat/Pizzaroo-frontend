@@ -60,6 +60,17 @@ const getData = (value) => {
     .then(res=> res.json())
 }
 
+const patchData = (id, data) => {
+  return fetch(`${ordersUrl}/${id}`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+}
+
 export default {
     signUp,
     logIn,
@@ -67,5 +78,6 @@ export default {
     clearToken,
     getData,
     ordersUrl,
-    orderDishUrl
+    orderDishUrl,
+    patchData
 }
