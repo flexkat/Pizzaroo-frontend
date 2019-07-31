@@ -16,7 +16,7 @@ class App extends React.Component {
   state = {
     user: undefined,
     restaurants: [],
-    orders: [],
+    orders: []
     // selectedRestaurant: "",
     // selectedOrder: ""
   }
@@ -92,7 +92,6 @@ class App extends React.Component {
 
   orderDishes = (order) => {
     const orderDishes = []
-    console.log(order)
     for (const key in order) {
       const quant = parseInt(order[key])
       for (let i = 0; i < quant; i++) {
@@ -101,6 +100,7 @@ class App extends React.Component {
     }
     return orderDishes;
   }
+  
   newOrder = (e, newOrder, id) => {
     e.preventDefault();
     const orderDishes = this.orderDishes(newOrder)

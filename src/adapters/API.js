@@ -4,6 +4,7 @@ const loginUrl = `${endpoint}/login`
 const ordersUrl = `${endpoint}/orders`
 const validateUrl = `${endpoint}/validate`
 const orderDishUrl = `${endpoint}/order_dishes`
+const orderDishesUrl = `${endpoint}/order_dishes`
 
 const jsonify = res => {
     if (res.ok)
@@ -79,5 +80,6 @@ export default {
     getData,
     ordersUrl,
     orderDishUrl,
+    orderDishesUrl
     patchData
 }

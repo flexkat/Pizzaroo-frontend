@@ -8,8 +8,19 @@ class OrderDetails extends React.Component {
 
   state = {
       showPopup: false,
+      orderDishes: []
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/order_dishes/')
+    .then(res => res.json())
+    .then(order_dishes => {
+      this.setState({
+        orderDishes: order_dishes
+      })
+    })
+  }
+  
 
   togglePopup() {
     this.setState({
@@ -17,24 +28,14 @@ class OrderDetails extends React.Component {
     });
   }
 
-  deleteOrderDish= () => {
-
-    fetch(API.orderDishUrl + '/' + this.props.order.id, {
-      method: 'delete'
-    }).then(res => res.json()
-      .then(json => this.togglePopup())
-      .then(setTimeout(() => this.props.redirectToHome(), 2000))
-    );
-  }
-
   deleteOrder= () => {
-    fetch(API.ordersUrl + '/' + this.props.order.id, {
-      method: 'delete'
-    }).then(res => res.json()
-      .then(json => this.togglePopup())
-      .then(setTimeout(() => this.props.redirectToHome(), 2000))
-    );
-  }
+      fetch('http://localhost:3000/api/v1/orders/' + this.props.order.id, {
+        method: 'delete'
+      }).then(res => res.json())
+        .then(json => this.togglePopup())
+        .then(setTimeout(() => this.props.redirectToHome(), 2000))
+    }
+}
 
   checkDishCount = (dish) => {
     const dishesArray = [...this.props.order.dishes]
@@ -58,14 +59,9 @@ class OrderDetails extends React.Component {
     const restaurant = this.props.order.restaurant.name
     const address = this.props.order.restaurant.address
     const time = this.props.order.restaurant.created_at
-    // const dishes = this.props.order.dishes
-    // const order = this.props.order
 
-    // const dishesArray = this.props.order.dishes
-    // const dishNames = dishesArray.map(dish => dish.name)
-    // const distinctDishNames = [...new Set(dishNames)]
-    const props = this.props;
     console.log(props)
+
     return (
       <div>
         {this.state.showPopup ? <PopUp/> : null}
@@ -90,10 +86,12 @@ class OrderDetails extends React.Component {
               )
             })
           }
+      
+          <button onClick={this.deleteOrder} >Delete order</button>
+
           <input className="submit-button" type="submit" value="Update Order"/>
         </form>
 
-        <button onClick={this.deleteOrderDish} >Delete order</button>
       </div>
     )
   }
