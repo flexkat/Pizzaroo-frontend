@@ -123,7 +123,6 @@ class App extends React.Component {
       }
    )}; 
 
-
   redirectToOrderEdit = (id) => {
     const editingOrder = this.findOrder(id);
     const dishQuantities = editingOrder.dishes.reduce((acc, item) => {
@@ -137,7 +136,6 @@ class App extends React.Component {
           }
         }
       }
-
 
       return {
         ...acc,

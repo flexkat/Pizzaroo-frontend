@@ -11,6 +11,10 @@ class OrderCard extends React.Component {
 
     return dishQuantity
   }
+
+  orderTotal = (dishes) => {
+   return dishes.reduce((acc, dish) => acc + dish.price, 0)
+  }
   
   render() {
     const dishesArray = this.props.order.dishes
@@ -22,6 +26,7 @@ class OrderCard extends React.Component {
         <div className="order-card card">
           <h3>{name}</h3>
           {distinctDishNames.map(dish => <p>{dish} x {this.checkDishCount(dish)}</p>)}
+          <p>£{this.orderTotal(dishesArray)}</p>
           <button 
             onClick={() => this.props.redirectToOrderEdit(this.props.order.id)}
             // onClick={() => this.props.setSelected("selectedOrder", this.props.order.id)}
