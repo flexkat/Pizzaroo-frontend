@@ -72,6 +72,15 @@ const patchData = (id, data) => {
     .then(res => res.json())
 }
 
+const postData = (url, data) => {
+    return fetch(url, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+}
+
+
 export default {
     signUp,
     logIn,
@@ -81,5 +90,6 @@ export default {
     ordersUrl,
     orderDishUrl,
     orderDishesUrl,
-    patchData
+    patchData,
+    postData
 }
