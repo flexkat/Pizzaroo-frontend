@@ -22,7 +22,7 @@ class OrderCard extends React.Component {
         <div className="order-card card">
           <h3>{name}</h3>
           {distinctDishNames.map(dish => <p>{dish} x {this.checkDishCount(dish)}</p>)}
-          <button 
+          <button className="submit-button"
             onClick={() => this.props.redirectToOrderEdit(this.props.order.id)}
             // onClick={() => this.props.setSelected("selectedOrder", this.props.order.id)}
           >Edit</button>

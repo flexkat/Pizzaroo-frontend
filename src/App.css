@@ -14,6 +14,7 @@
   border: black 1px solid;
   padding: 5px;
   margin: 20px;
+  color: white;
 }
 
 .login {
@@ -40,6 +41,8 @@
   background-image: url('./media/pizza-1920x1080-tomato-pepper-4k-16605.jpg');
   height: 100vh;
   font-family: 'Special Elite', cursive;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -126,4 +129,32 @@ overflow: hidden;
 
 .popuptext {
   text-align: center;
+}
+
+.order-details {
+  background-image: url('./media/download.jpeg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 100vh;
+  font-family: 'Special Elite', cursive;
+  color: white;
+}
+
+.restaurant-details {
+  background-image: url('./media/download2.jpeg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 100vh;
+  font-family: 'Special Elite', cursive;
+  color: white;
+}
+
+.restaurant-details-2 {
+  display: flex;
+}
+
+.restaurant-title {
+  margin-left: 50%;
 }

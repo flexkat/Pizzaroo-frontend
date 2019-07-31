@@ -61,7 +61,7 @@ class OrderDetails extends React.Component {
 
     const props = this.props
     return (
-      <div>
+      <div className="order-details">
         {this.state.showPopup ? <PopUp/> : null}
         <h3>To: {restaurant}</h3>
         <p>Address: {address}</p>
