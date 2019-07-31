@@ -153,8 +153,17 @@ overflow: hidden;
 
 .restaurant-details-2 {
   display: flex;
+  box-shadow: 12px 12px 12px 12px rgba(0,0,0,0.4);
+	padding: 2em;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.5);
 }
 
 .restaurant-title {
   margin-left: 50%;
+}
+
+.order-input {
+  border-radius: 5px;
+  width: 30px;
 }
