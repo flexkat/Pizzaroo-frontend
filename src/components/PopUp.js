@@ -6,7 +6,7 @@ class PopUp extends React.Component {
     return (
       <div className='popup'>
         <div className='popup_inner'>
-          <h1>Order Deleted!</h1>
+          <h1 className="popuptext">Order Deleted!</h1>
         </div>
       </div>
     );

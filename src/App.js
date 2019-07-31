@@ -198,7 +198,7 @@ class App extends React.Component {
                 body: JSON.stringify(data)})
                 .then(res => res.json())
                 .then(this.loadOrders())
-                .then(setTimeout(() => this.redirectToHome(), 2000))
+                .then(setTimeout(() => this.redirectToHome(), 1000))
               }
             }
           }
@@ -220,7 +220,7 @@ class App extends React.Component {
           } />
           
           <Route exact path='/home' render={(props)=>
-            <div>
+            <div className="homepage">
               <RestaurantContainer {...props} restaurants={this.state.restaurants} 
               // setSelected={this.setSelected} 
               />

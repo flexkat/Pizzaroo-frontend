@@ -1,12 +1,14 @@
-body {
-  display: flex;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 .restaurant-card {
   border: black 1px solid;
   padding: 5px;
   margin: 20px;
-
+  color: white;
+  text-decoration: none;
 }
 .order-card {
   border: black 1px solid;
@@ -32,6 +34,12 @@ body {
 
 .container {
   padding: 2px 16px;
+}
+
+.homepage {
+  background-image: url('./media/pizza-1920x1080-tomato-pepper-4k-16605.jpg');
+  height: 100vh;
+  font-family: 'Special Elite', cursive;
 }
 
 .logo {
@@ -70,6 +78,26 @@ body {
 .submit-button:hover{
   background-color:#4095c6;
 }
+
+.submit-button-delete {
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color: red;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+.submit-button-delete:hover{
+  background-color:red;
+}
+
 .popup{
 position: fixed;
 width: 100%;
@@ -90,5 +118,12 @@ top: 25%;
 bottom: 25%;
 margin: auto;
 border-radius: 20px;
-background: white;
+background-image: url('./media/empty-pizza-box.jpg');
+background-size: cover;
+background-position: center;
+overflow: hidden;
+}
+
+.popuptext {
+  text-align: center;
 }

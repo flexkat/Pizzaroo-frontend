@@ -86,7 +86,7 @@ class OrderDetails extends React.Component {
           }
           <input className="submit-button" type="submit" value="Update Order"/>
         </form>
-        <button onClick={this.deleteOrder} >Delete order</button>
+        <button onClick={this.deleteOrder} className="submit-button-delete">Delete order</button>
 
       </div>
     )
