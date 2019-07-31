@@ -76,18 +76,6 @@ class App extends React.Component {
 
   findRestaurant = id => this.state.restaurants.find(rest => rest.id === parseInt(id))
 
-  // editOrder = (e, editedOrder, orderId) => {
-  //  const orderDishes = this.orderDishes(editedOrder)
-  //   API.patchData(orderDishes, orderId)
-  //   .then(console.log)
-  //   // setselectedorder,
-  //   // edit pre-populated order form
-  //   // submit -> editorder (e, editedOrder, order.id)
-  //   // get new orderDishes
-  //   // patch request to that order id
-  //   // fetch()
-  // } 
-  
   findOrder = id => this.state.orders.find(res => res.id === parseInt(id))
 
   orderDishes = (order) => {
@@ -210,6 +198,7 @@ class App extends React.Component {
                 body: JSON.stringify(data)})
                 .then(res => res.json())
                 .then(this.loadOrders())
+                .then(setTimeout(() => this.redirectToHome(), 2000))
               }
             }
           }

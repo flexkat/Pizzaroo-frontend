@@ -29,13 +29,12 @@ class OrderDetails extends React.Component {
   }
 
   deleteOrder= () => {
-      fetch('http://localhost:3000/api/v1/orders/' + this.props.order.id, {
-        method: 'delete'
-      }).then(res => res.json())
-        .then(json => this.togglePopup())
-        .then(setTimeout(() => this.props.redirectToHome(), 2000))
-    }
-}
+    fetch('http://localhost:3000/api/v1/orders/' + this.props.order.id, {
+      method: 'delete'
+    }).then(res => res.json())
+      .then(json => this.togglePopup())
+      .then(setTimeout(() => this.props.redirectToHome(), 2000))
+  }
 
   checkDishCount = (dish) => {
     const dishesArray = [...this.props.order.dishes]
@@ -60,8 +59,7 @@ class OrderDetails extends React.Component {
     const address = this.props.order.restaurant.address
     const time = this.props.order.restaurant.created_at
 
-    console.log(props)
-
+    const props = this.props
     return (
       <div>
         {this.state.showPopup ? <PopUp/> : null}
@@ -86,11 +84,9 @@ class OrderDetails extends React.Component {
               )
             })
           }
-      
-          <button onClick={this.deleteOrder} >Delete order</button>
-
           <input className="submit-button" type="submit" value="Update Order"/>
         </form>
+        <button onClick={this.deleteOrder} >Delete order</button>
 
       </div>
     )

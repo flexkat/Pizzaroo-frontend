@@ -80,6 +80,6 @@ export default {
     getData,
     ordersUrl,
     orderDishUrl,
-    orderDishesUrl
+    orderDishesUrl,
     patchData
 }
