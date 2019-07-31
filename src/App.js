@@ -17,8 +17,6 @@ class App extends React.Component {
     user: undefined,
     restaurants: [],
     orders: []
-    // selectedRestaurant: "",
-    // selectedOrder: ""
   }
 
   componentDidMount() {
@@ -39,12 +37,6 @@ class App extends React.Component {
       })
     })
   }
-
-  // setSelected = (key, item) => {
-  //   this.setState({
-  //     [key]: item
-  //   })
-  // }
 
   signUp = (user) => {
     API.signUp(user)
@@ -147,7 +139,6 @@ class App extends React.Component {
       }
     }, {})
 
-
     this.setState({
       editingOrder,
       dishQuantities,
@@ -190,10 +181,7 @@ class App extends React.Component {
               quantity: 1
             }
             for (let i=0; i < frequency; i ++) {
-              fetch(API.orderDishUrl, {
-                method: 'POST',
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(data)})
+              API.postData(API.orderDishUrl, data)
                 .then(res => res.json())
                 .then(this.loadOrders())
                 .then(setTimeout(() => this.redirectToHome(), 2000))
@@ -208,7 +196,7 @@ class App extends React.Component {
   render() {
      
     return (
-        <div>
+        <div className="parent-container">
 
           <Route exact path="/" component={() => 
             <div className="login">
@@ -220,10 +208,8 @@ class App extends React.Component {
           <Route exact path='/home' render={(props)=>
             <div>
               <RestaurantContainer {...props} restaurants={this.state.restaurants} 
-              // setSelected={this.setSelected} 
               />
               <OrderContainer orders={this.state.orders} redirectToOrderEdit={this.redirectToOrderEdit} 
-              // setSelected={this.setSelected}
               />
             </div>
           } />
