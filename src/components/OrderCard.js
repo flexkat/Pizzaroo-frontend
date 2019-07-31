@@ -4,7 +4,7 @@ import React from 'react'
 class OrderCard extends React.Component {
 
   checkDishCount = (dish, id) => {
-    const dishesArray = this.props.order.dishes
+    const dishesArray = [...this.props.order.dishes]
     const dishNames = dishesArray.map(dish => dish.name)
     const dishCount = dishNames.filter(d => d === dish)
     const dishQuantity = dishCount.length
